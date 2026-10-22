@@ -21,10 +21,13 @@ public class MainActivity extends Activity {
     private final int BG = Color.rgb(10, 14, 22);
     private final int SURFACE = Color.rgb(18, 24, 34);
     private final int SURFACE_2 = Color.rgb(25, 32, 44);
+
     private final int PRIMARY = Color.rgb(70, 125, 255);
     private final int PRIMARY_DARK = Color.rgb(45, 91, 210);
+
     private final int TEXT = Color.rgb(242, 245, 250);
     private final int MUTED = Color.rgb(150, 160, 175);
+
     private final int SUCCESS = Color.rgb(60, 190, 125);
     private final int WARNING = Color.rgb(240, 175, 70);
 
@@ -33,13 +36,18 @@ public class MainActivity extends Activity {
 
     private int currentPage = 0;
 
+    private ArrayList<String> chatMessages =
+            new ArrayList<>();
+
     // ============================================================
     // DP
     // ============================================================
 
     private int dp(int value) {
         return Math.round(
-                value * getResources().getDisplayMetrics().density
+                value * getResources()
+                        .getDisplayMetrics()
+                        .density
         );
     }
 
@@ -63,15 +71,25 @@ public class MainActivity extends Activity {
 
     private void buildApplication() {
 
-        mainContainer = new LinearLayout(this);
-        mainContainer.setOrientation(LinearLayout.VERTICAL);
+        mainContainer =
+                new LinearLayout(this);
+
+        mainContainer.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
         mainContainer.setBackgroundColor(BG);
 
-        // Content
-        contentContainer = new LinearLayout(this);
-        contentContainer.setOrientation(LinearLayout.VERTICAL);
+        contentContainer =
+                new LinearLayout(this);
 
-        ScrollView scrollView = new ScrollView(this);
+        contentContainer.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
+        ScrollView scrollView =
+                new ScrollView(this);
+
         scrollView.setFillViewport(true);
 
         scrollView.addView(
@@ -91,8 +109,8 @@ public class MainActivity extends Activity {
                 )
         );
 
-        // Bottom navigation
-        LinearLayout bottomNavigation = createBottomNavigation();
+        LinearLayout bottomNavigation =
+                createBottomNavigation();
 
         mainContainer.addView(
                 bottomNavigation,
@@ -113,10 +131,15 @@ public class MainActivity extends Activity {
 
     private LinearLayout createBottomNavigation() {
 
-        LinearLayout nav = new LinearLayout(this);
+        LinearLayout nav =
+                new LinearLayout(this);
 
-        nav.setOrientation(LinearLayout.HORIZONTAL);
+        nav.setOrientation(
+                LinearLayout.HORIZONTAL
+        );
+
         nav.setGravity(Gravity.CENTER);
+
         nav.setPadding(
                 dp(8),
                 dp(6),
@@ -171,10 +194,15 @@ public class MainActivity extends Activity {
             int page
     ) {
 
-        LinearLayout item = new LinearLayout(this);
+        LinearLayout item =
+                new LinearLayout(this);
 
-        item.setOrientation(LinearLayout.VERTICAL);
+        item.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
         item.setGravity(Gravity.CENTER);
+
         item.setPadding(
                 dp(3),
                 dp(3),
@@ -182,13 +210,18 @@ public class MainActivity extends Activity {
                 dp(3)
         );
 
-        TextView iconView = new TextView(this);
+        TextView iconView =
+                new TextView(this);
+
         iconView.setText(icon);
         iconView.setTextSize(24);
         iconView.setGravity(Gravity.CENTER);
 
-        TextView textView = new TextView(this);
+        TextView textView =
+                new TextView(this);
+
         textView.setText(text);
+        textView.setTextColor(TEXT);
         textView.setTextSize(10);
         textView.setGravity(Gravity.CENTER);
 
@@ -208,33 +241,35 @@ public class MainActivity extends Activity {
                 )
         );
 
-        item.setOnClickListener(v -> {
+        item.setOnClickListener(
+                v -> {
 
-            currentPage = page;
+                    currentPage = page;
 
-            switch (page) {
+                    switch (page) {
 
-                case 0:
-                    showHome();
-                    break;
+                        case 0:
+                            showHome();
+                            break;
 
-                case 1:
-                    showAI();
-                    break;
+                        case 1:
+                            showAI();
+                            break;
 
-                case 2:
-                    showSubjects();
-                    break;
+                        case 2:
+                            showSubjects();
+                            break;
 
-                case 3:
-                    showExercises();
-                    break;
+                        case 3:
+                            showExercises();
+                            break;
 
-                case 4:
-                    showSettings();
-                    break;
-            }
-        });
+                        case 4:
+                            showSettings();
+                            break;
+                    }
+                }
+        );
 
         parent.addView(
                 item,
@@ -264,11 +299,13 @@ public class MainActivity extends Activity {
 
     private TextView title(String text) {
 
-        TextView t = new TextView(this);
+        TextView t =
+                new TextView(this);
 
         t.setText(text);
         t.setTextColor(TEXT);
         t.setTextSize(27);
+
         t.setTypeface(
                 Typeface.DEFAULT,
                 Typeface.BOLD
@@ -281,23 +318,29 @@ public class MainActivity extends Activity {
 
     private TextView subtitle(String text) {
 
-        TextView t = new TextView(this);
+        TextView t =
+                new TextView(this);
 
         t.setText(text);
         t.setTextColor(MUTED);
         t.setTextSize(14);
+
         t.setGravity(Gravity.RIGHT);
 
         return t;
     }
 
-    private TextView sectionTitle(String text) {
+    private TextView sectionTitle(
+            String text
+    ) {
 
-        TextView t = new TextView(this);
+        TextView t =
+                new TextView(this);
 
         t.setText(text);
         t.setTextColor(TEXT);
         t.setTextSize(19);
+
         t.setTypeface(
                 Typeface.DEFAULT,
                 Typeface.BOLD
@@ -324,7 +367,9 @@ public class MainActivity extends Activity {
                 new GradientDrawable();
 
         drawable.setColor(color);
-        drawable.setCornerRadius(dp(radius));
+        drawable.setCornerRadius(
+                dp(radius)
+        );
 
         return drawable;
     }
@@ -371,6 +416,29 @@ public class MainActivity extends Activity {
         return button;
     }
 
+    private LinearLayout.LayoutParams marginParams(
+            int left,
+            int top,
+            int right,
+            int bottom
+    ) {
+
+        LinearLayout.LayoutParams p =
+                new LinearLayout.LayoutParams(
+                        -1,
+                        -2
+                );
+
+        p.setMargins(
+                dp(left),
+                dp(top),
+                dp(right),
+                dp(bottom)
+        );
+
+        return p;
+    }
+
     // ============================================================
     // HOME
     // ============================================================
@@ -391,11 +459,12 @@ public class MainActivity extends Activity {
 
         logo.setText("🎓");
         logo.setTextSize(38);
+        logo.setGravity(Gravity.CENTER);
 
         header.addView(
                 logo,
                 new LinearLayout.LayoutParams(
-                        dp(50),
+                        dp(55),
                         dp(60)
                 )
         );
@@ -413,6 +482,7 @@ public class MainActivity extends Activity {
         appName.setText("BacTech AI");
         appName.setTextColor(TEXT);
         appName.setTextSize(23);
+
         appName.setTypeface(
                 Typeface.DEFAULT,
                 Typeface.BOLD
@@ -442,16 +512,11 @@ public class MainActivity extends Activity {
 
         contentContainer.addView(header);
 
+        // ========================================================
         // AI CARD
+        // ========================================================
 
         LinearLayout aiCard = card();
-
-        aiCard.setPadding(
-                dp(20),
-                dp(20),
-                dp(20),
-                dp(20)
-        );
 
         TextView aiLabel =
                 new TextView(this);
@@ -459,6 +524,7 @@ public class MainActivity extends Activity {
         aiLabel.setText("🤖  AI TUTOR");
         aiLabel.setTextColor(PRIMARY);
         aiLabel.setTextSize(13);
+
         aiLabel.setTypeface(
                 Typeface.DEFAULT,
                 Typeface.BOLD
@@ -475,6 +541,7 @@ public class MainActivity extends Activity {
 
         aiTitle.setTextColor(TEXT);
         aiTitle.setTextSize(22);
+
         aiTitle.setTypeface(
                 Typeface.DEFAULT,
                 Typeface.BOLD
@@ -493,7 +560,7 @@ public class MainActivity extends Activity {
                 new TextView(this);
 
         aiDescription.setText(
-                "شرح • حل تمارين • مراجعة • تحليل الصور"
+                "شرح • حل تمارين • مراجعة • مساعد دراسي"
         );
 
         aiDescription.setTextColor(MUTED);
@@ -502,7 +569,9 @@ public class MainActivity extends Activity {
         aiCard.addView(aiDescription);
 
         Button askAI =
-                actionButton("ابدأ المحادثة  →");
+                actionButton(
+                        "ابدأ المحادثة  →"
+                );
 
         LinearLayout.LayoutParams aiButtonParams =
                 new LinearLayout.LayoutParams(
@@ -524,23 +593,31 @@ public class MainActivity extends Activity {
 
         contentContainer.addView(
                 aiCard,
-                marginParams(0, 20, 0, 0)
+                marginParams(
+                        0,
+                        20,
+                        0,
+                        0
+                )
         );
 
+        // ========================================================
         // PROGRESS
+        // ========================================================
 
         contentContainer.addView(
                 sectionTitle("تقدمك اليوم")
         );
 
-        LinearLayout progressCard = card();
+        LinearLayout progressCard =
+                card();
 
         TextView progressText =
                 new TextView(this);
 
         progressText.setText(
                 "🎯  هدف اليوم\n\n" +
-                "أكملت 0% من جلسة المراجعة"
+                "ابدأ أول جلسة مراجعة لك"
         );
 
         progressText.setTextColor(TEXT);
@@ -576,10 +653,14 @@ public class MainActivity extends Activity {
                 progressCard
         );
 
+        // ========================================================
         // SUBJECTS
+        // ========================================================
 
         contentContainer.addView(
-                sectionTitle("المواد الدراسية")
+                sectionTitle(
+                        "المواد الدراسية"
+                )
         );
 
         addSubjectCard(
@@ -610,7 +691,9 @@ public class MainActivity extends Activity {
                 Color.rgb(180, 100, 240)
         );
 
+        // ========================================================
         // QUICK ACTIONS
+        // ========================================================
 
         contentContainer.addView(
                 sectionTitle("اختصارات")
@@ -647,6 +730,10 @@ public class MainActivity extends Activity {
         contentContainer.addView(quick);
     }
 
+    // ============================================================
+    // SUBJECT CARD
+    // ============================================================
+
     private void addSubjectCard(
             String icon,
             String name,
@@ -654,25 +741,25 @@ public class MainActivity extends Activity {
             int accent
     ) {
 
-        LinearLayout card =
+        LinearLayout subjectCard =
                 new LinearLayout(this);
 
-        card.setOrientation(
+        subjectCard.setOrientation(
                 LinearLayout.HORIZONTAL
         );
 
-        card.setGravity(
+        subjectCard.setGravity(
                 Gravity.CENTER_VERTICAL
         );
 
-        card.setPadding(
+        subjectCard.setPadding(
                 dp(15),
                 dp(13),
                 dp(15),
                 dp(13)
         );
 
-        card.setBackground(
+        subjectCard.setBackground(
                 background(SURFACE, 15)
         );
 
@@ -681,9 +768,11 @@ public class MainActivity extends Activity {
 
         iconView.setText(icon);
         iconView.setTextSize(28);
-        iconView.setGravity(Gravity.CENTER);
+        iconView.setGravity(
+                Gravity.CENTER
+        );
 
-        card.addView(
+        subjectCard.addView(
                 iconView,
                 new LinearLayout.LayoutParams(
                         dp(50),
@@ -704,6 +793,7 @@ public class MainActivity extends Activity {
         nameView.setText(name);
         nameView.setTextColor(TEXT);
         nameView.setTextSize(17);
+
         nameView.setTypeface(
                 Typeface.DEFAULT,
                 Typeface.BOLD
@@ -719,7 +809,7 @@ public class MainActivity extends Activity {
         info.addView(nameView);
         info.addView(desc);
 
-        card.addView(
+        subjectCard.addView(
                 info,
                 new LinearLayout.LayoutParams(
                         0,
@@ -735,7 +825,7 @@ public class MainActivity extends Activity {
         arrow.setTextColor(accent);
         arrow.setTextSize(28);
 
-        card.addView(
+        subjectCard.addView(
                 arrow,
                 new LinearLayout.LayoutParams(
                         dp(35),
@@ -744,10 +834,19 @@ public class MainActivity extends Activity {
         );
 
         contentContainer.addView(
-                card,
-                marginParams(0, 5, 0, 5)
+                subjectCard,
+                marginParams(
+                        0,
+                        5,
+                        0,
+                        5
+                )
         );
     }
+
+    // ============================================================
+    // QUICK BUTTON
+    // ============================================================
 
     private void addQuickButton(
             LinearLayout parent,
@@ -763,7 +862,9 @@ public class MainActivity extends Activity {
                 LinearLayout.VERTICAL
         );
 
-        button.setGravity(Gravity.CENTER);
+        button.setGravity(
+                Gravity.CENTER
+        );
 
         button.setPadding(
                 dp(8),
@@ -794,14 +895,18 @@ public class MainActivity extends Activity {
         button.addView(i);
         button.addView(t);
 
-        button.setOnClickListener(v -> {
+        button.setOnClickListener(
+                v -> {
 
-            if (type == 0) {
-                showExercises();
-            } else if (type == 2) {
-                showProgress();
-            }
-        });
+                    if (type == 0) {
+                        showExercises();
+                    } else if (type == 1) {
+                        showAI();
+                    } else if (type == 2) {
+                        showProgress();
+                    }
+                }
+        );
 
         LinearLayout.LayoutParams p =
                 new LinearLayout.LayoutParams(
@@ -821,21 +926,765 @@ public class MainActivity extends Activity {
     }
 
     // ============================================================
-    // AI
+    // AI PAGE
     // ============================================================
 
     private void showAI() {
 
         clearContent();
 
-        TextView t =
-                title("🤖 المساعد الذكي");
-
-        contentContainer.addView(t);
+        contentContainer.addView(
+                title("🤖 المساعد الذكي")
+        );
 
         TextView sub =
                 subtitle(
-                        "اسأل، أرسل تمرينًا، أو اطلب شرحًا"
+                        "اسأل، اشرح، راجع، أو اطلب حل تمرين"
+                );
+
+        sub.setPadding(
+                0,
+                dp(5),
+                0,
+                dp(15)
+        );
+
+        contentContainer.addView(sub);
+
+        // ========================================================
+        // CHAT AREA
+        // ========================================================
+
+        LinearLayout chatBox =
+                new LinearLayout(this);
+
+        chatBox.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
+        chatBox.setPadding(
+                dp(12),
+                dp(12),
+                dp(12),
+                dp(12)
+        );
+
+        chatBox.setBackground(
+                background(SURFACE, 18)
+        );
+
+        TextView welcome =
+                new TextView(this);
+
+        welcome.setText(
+                "👋 مرحبًا بك في BacTech AI\n\n" +
+                "أنا مساعدك الدراسي.\n" +
+                "يمكنني مساعدتك في:\n\n" +
+                "• الرياضيات\n" +
+                "• الفيزياء\n" +
+                "• الكيمياء\n" +
+                "• التقنية\n" +
+                "• مراجعة البكالوريا"
+        );
+
+        welcome.setTextColor(TEXT);
+        welcome.setTextSize(15);
+        welcome.setGravity(Gravity.RIGHT);
+
+        welcome.setPadding(
+                dp(12),
+                dp(12),
+                dp(12),
+                dp(12)
+        );
+
+        chatBox.addView(welcome);
+
+        if (!chatMessages.isEmpty()) {
+
+            for (String message :
+                    chatMessages) {
+
+                TextView msg =
+                        new TextView(this);
+
+                msg.setText(message);
+                msg.setTextColor(TEXT);
+                msg.setTextSize(14);
+                msg.setGravity(Gravity.RIGHT);
+
+                msg.setPadding(
+                        dp(12),
+                        dp(12),
+                        dp(12),
+                        dp(12)
+                );
+
+                LinearLayout.LayoutParams mp =
+                        marginParams(
+                                0,
+                                8,
+                                0,
+                                0
+                        );
+
+                chatBox.addView(
+                        msg,
+                        mp
+                );
+            }
+        }
+
+        contentContainer.addView(
+                chatBox,
+                marginParams(
+                        0,
+                        5,
+                        0,
+                        15
+                )
+        );
+
+        // ========================================================
+        // INPUT
+        // ========================================================
+
+        LinearLayout inputRow =
+                new LinearLayout(this);
+
+        inputRow.setOrientation(
+                LinearLayout.HORIZONTAL
+        );
+
+        EditText input =
+                new EditText(this);
+
+        input.setHint(
+                "اكتب سؤالك هنا..."
+        );
+
+        input.setHintTextColor(MUTED);
+        input.setTextColor(TEXT);
+        input.setTextSize(14);
+
+        input.setGravity(
+                Gravity.RIGHT |
+                Gravity.CENTER_VERTICAL
+        );
+
+        input.setSingleLine(false);
+
+        input.setMinHeight(
+                dp(52)
+        );
+
+        input.setPadding(
+                dp(14),
+                dp(8),
+                dp(14),
+                dp(8)
+        );
+
+        input.setBackground(
+                background(SURFACE_2, 15)
+        );
+
+        inputRow.addView(
+                input,
+                new LinearLayout.LayoutParams(
+                        0,
+                        dp(58),
+                        1
+                )
+        );
+
+        Button send =
+                actionButton("إرسال");
+
+        LinearLayout.LayoutParams sendParams =
+                new LinearLayout.LayoutParams(
+                        dp(90),
+                        dp(58)
+                );
+
+        sendParams.leftMargin =
+                dp(8);
+
+        inputRow.addView(
+                send,
+                sendParams
+        );
+
+        contentContainer.addView(inputRow);
+
+        // ========================================================
+        // SEND
+        // ========================================================
+
+        send.setOnClickListener(
+                v -> {
+
+                    String question =
+                            input.getText()
+                                    .toString()
+                                    .trim();
+
+                    if (question.isEmpty()) {
+                        return;
+                    }
+
+                    chatMessages.add(
+                            "👤 أنت:\n" +
+                            question
+                    );
+
+                    String answer =
+                            generateLocalAnswer(
+                                    question
+                            );
+
+                    chatMessages.add(
+                            "🤖 BacTech AI:\n" +
+                            answer
+                    );
+
+                    input.setText("");
+
+                    showAI();
+                }
+        );
+
+        // ========================================================
+        // SUGGESTIONS
+        // ========================================================
+
+        contentContainer.addView(
+                sectionTitle(
+                        "أسئلة سريعة"
+                )
+        );
+
+        addSuggestion(
+                "اشرح لي درس RC",
+                "اشرح لي درس RC بطريقة سهلة"
+        );
+
+        addSuggestion(
+                "ساعدني في الرياضيات",
+                "أريد مساعدة في الرياضيات"
+        );
+
+        addSuggestion(
+                "مراجعة الفيزياء",
+                "أريد مراجعة فيزياء للبكالوريا"
+        );
+
+        addSuggestion(
+                "كيف أراجع التقنية؟",
+                "أعطني طريقة لمراجعة التقنية"
+        );
+    }
+
+    // ============================================================
+    // AI LOCAL ANSWER
+    // ============================================================
+
+    private String generateLocalAnswer(
+            String question
+    ) {
+
+        String q =
+                question.toLowerCase();
+
+        if (q.contains("rc")) {
+
+            return
+                    "دائرة RC تتكون عادةً من مقاومة R ومكثف C.\n\n" +
+                    "عند الشحن، يرتفع جهد المكثف Uc تدريجيًا، " +
+                    "بينما يتناقص التيار مع الزمن.\n\n" +
+                    "إذا أرسلت لي التمرين أو صورة منه، " +
+                    "يمكنني شرح المعطيات والخطوات.";
+        }
+
+        if (q.contains("رياضيات") ||
+                q.contains("math")) {
+
+            return
+                    "أكيد 👍\n\n" +
+                    "أرسل لي التمرين كما هو، " +
+                    "وسأساعدك في فهم المطلوب ثم حلّه خطوة بخطوة.";
+        }
+
+        if (q.contains("فيزياء") ||
+                q.contains("physique")) {
+
+            return
+                    "يمكنني مساعدتك في الفيزياء، " +
+                    "خصوصًا الكهرباء والميكانيك والطاقة.\n\n" +
+                    "أرسل التمرين أو اكتب الجزء الذي لم تفهمه.";
+        }
+
+        if (q.contains("كيمياء") ||
+                q.contains("chimie")) {
+
+            return
+                    "في الكيمياء يمكنني مساعدتك في:\n" +
+                    "• جدول التقدم\n" +
+                    "• كمية المادة\n" +
+                    "• المتفاعل المحد\n" +
+                    "• المحاليل\n\n" +
+                    "أرسل التمرين وسنحلّه معًا.";
+        }
+
+        if (q.contains("تقنية") ||
+                q.contains("electrique")) {
+
+            return
+                    "التقنية تشمل عدة مواضيع مثل الأنظمة، " +
+                    "الكهرباء والإلكترونيات.\n\n" +
+                    "اكتب اسم الدرس أو أرسل صورة التمرين.";
+        }
+
+        if (q.contains("مرحبا") ||
+                q.contains("سلام") ||
+                q.contains("hello")) {
+
+            return
+                    "أهلًا بك 👋\n" +
+                    "أنا BacTech AI، جاهز لمساعدتك في دراستك.";
+        }
+
+        return
+                "فهمت سؤالك 👍\n\n" +
+                "أنا حاليًا في وضع المساعد المحلي، " +
+                "لذلك أستطيع تقديم المساعدة الأساسية.\n\n" +
+                "للحصول على إجابات ذكاء اصطناعي حقيقية، " +
+                "سنربط التطبيق بواجهة AI في الخطوة التالية.";
+    }
+
+    // ============================================================
+    // SUGGESTION
+    // ============================================================
+
+    private void addSuggestion(
+            String buttonText,
+            String question
+    ) {
+
+        Button button =
+                actionButton(buttonText);
+
+        LinearLayout.LayoutParams p =
+                marginParams(
+                        0,
+                        4,
+                        0,
+                        4
+                );
+
+        contentContainer.addView(
+                button,
+                p
+        );
+
+        button.setOnClickListener(
+                v -> {
+
+                    chatMessages.add(
+                            "👤 أنت:\n" +
+                            question
+                    );
+
+                    chatMessages.add(
+                            "🤖 BacTech AI:\n" +
+                            generateLocalAnswer(
+                                    question
+                            )
+                    );
+
+                    showAI();
+                }
+        );
+    }
+
+    // ============================================================
+    // SUBJECTS
+    // ============================================================
+
+    private void showSubjects() {
+
+        clearContent();
+
+        contentContainer.addView(
+                title("📚 المواد الدراسية")
+        );
+
+        TextView sub =
+                subtitle(
+                        "اختر المادة التي تريد مراجعتها"
+                );
+
+        sub.setPadding(
+                0,
+                dp(5),
+                0,
+                dp(15)
+        );
+
+        contentContainer.addView(sub);
+
+        addLargeSubject(
+                "📐",
+                "الرياضيات",
+                "الدوال • الأعداد • الهندسة • الاحتمالات",
+                PRIMARY
+        );
+
+        addLargeSubject(
+                "⚡",
+                "الفيزياء",
+                "الكهرباء • الميكانيك • الطاقة",
+                WARNING
+        );
+
+        addLargeSubject(
+                "🧪",
+                "الكيمياء",
+                "التفاعلات • المحاليل • كمية المادة",
+                SUCCESS
+        );
+
+        addLargeSubject(
+                "⚙️",
+                "التقنية",
+                "الأنظمة • الكهرباء • الإلكترونيات",
+                Color.rgb(180, 100, 240)
+        );
+
+        addLargeSubject(
+                "🇫🇷",
+                "الفرنسية",
+                "فهم النص • القواعد • التعبير",
+                Color.rgb(90, 180, 220)
+        );
+
+        addLargeSubject(
+                "🇬🇧",
+                "الإنجليزية",
+                "Grammar • Vocabulary • Writing",
+                Color.rgb(220, 100, 120)
+        );
+    }
+
+    private void addLargeSubject(
+            String icon,
+            String name,
+            String description,
+            int accent
+    ) {
+
+        LinearLayout box =
+                card();
+
+        LinearLayout row =
+                new LinearLayout(this);
+
+        row.setOrientation(
+                LinearLayout.HORIZONTAL
+        );
+
+        row.setGravity(
+                Gravity.CENTER_VERTICAL
+        );
+
+        TextView iconView =
+                new TextView(this);
+
+        iconView.setText(icon);
+        iconView.setTextSize(34);
+        iconView.setGravity(Gravity.CENTER);
+
+        row.addView(
+                iconView,
+                new LinearLayout.LayoutParams(
+                        dp(60),
+                        dp(60)
+                )
+        );
+
+        LinearLayout info =
+                new LinearLayout(this);
+
+        info.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
+        TextView n =
+                new TextView(this);
+
+        n.setText(name);
+        n.setTextColor(TEXT);
+        n.setTextSize(18);
+
+        n.setTypeface(
+                Typeface.DEFAULT,
+                Typeface.BOLD
+        );
+
+        TextView d =
+                new TextView(this);
+
+        d.setText(description);
+        d.setTextColor(MUTED);
+        d.setTextSize(12);
+
+        info.addView(n);
+        info.addView(d);
+
+        row.addView(
+                info,
+                new LinearLayout.LayoutParams(
+                        0,
+                        -2,
+                        1
+                )
+        );
+
+        TextView arrow =
+                new TextView(this);
+
+        arrow.setText("›");
+        arrow.setTextColor(accent);
+        arrow.setTextSize(28);
+
+        row.addView(
+                arrow,
+                new LinearLayout.LayoutParams(
+                        dp(35),
+                        dp(50)
+                )
+        );
+
+        box.addView(row);
+
+        contentContainer.addView(
+                box,
+                marginParams(
+                        0,
+                        6,
+                        0,
+                        6
+                )
+        );
+    }
+
+    // ============================================================
+    // EXERCISES
+    // ============================================================
+
+    private void showExercises() {
+
+        clearContent();
+
+        contentContainer.addView(
+                title("📝 التمارين")
+        );
+
+        TextView sub =
+                subtitle(
+                        "تدرب واختبر فهمك"
+                );
+
+        sub.setPadding(
+                0,
+                dp(5),
+                0,
+                dp(15)
+        );
+
+        contentContainer.addView(sub);
+
+        addExerciseCard(
+                "رياضيات",
+                "الدوال",
+                "مستوى متوسط",
+                PRIMARY
+        );
+
+        addExerciseCard(
+                "فيزياء",
+                "دارة RC",
+                "مستوى متوسط",
+                WARNING
+        );
+
+        addExerciseCard(
+                "كيمياء",
+                "جدول التقدم",
+                "مستوى متوسط",
+                SUCCESS
+        );
+
+        addExerciseCard(
+                "تقنية",
+                "تحليل نظام",
+                "مستوى متقدم",
+                Color.rgb(180, 100, 240)
+        );
+
+        contentContainer.addView(
+                sectionTitle(
+                        "تمرين سريع"
+                )
+        );
+
+        LinearLayout quick =
+                card();
+
+        TextView q =
+                new TextView(this);
+
+        q.setText(
+                "إذا كان لديك تمرين في صورة، " +
+                "يمكنك استخدامه مع المساعد الذكي."
+        );
+
+        q.setTextColor(TEXT);
+        q.setTextSize(14);
+        q.setGravity(Gravity.RIGHT);
+
+        quick.addView(q);
+
+        Button ai =
+                actionButton(
+                        "فتح المساعد 🤖"
+                );
+
+        LinearLayout.LayoutParams ap =
+                marginParams(
+                        0,
+                        15,
+                        0,
+                        0
+                );
+
+        quick.addView(ai, ap);
+
+        ai.setOnClickListener(
+                v -> showAI()
+        );
+
+        contentContainer.addView(quick);
+    }
+
+    private void addExerciseCard(
+            String subject,
+            String exercise,
+            String level,
+            int accent
+    ) {
+
+        LinearLayout box =
+                card();
+
+        TextView s =
+                new TextView(this);
+
+        s.setText(
+                subject
+        );
+
+        s.setTextColor(accent);
+        s.setTextSize(12);
+
+        s.setTypeface(
+                Typeface.DEFAULT,
+                Typeface.BOLD
+        );
+
+        box.addView(s);
+
+        TextView e =
+                new TextView(this);
+
+        e.setText(exercise);
+        e.setTextColor(TEXT);
+        e.setTextSize(19);
+
+        e.setTypeface(
+                Typeface.DEFAULT,
+                Typeface.BOLD
+        );
+
+        e.setPadding(
+                0,
+                dp(5),
+                0,
+                dp(4)
+        );
+
+        box.addView(e);
+
+        TextView l =
+                new TextView(this);
+
+        l.setText(
+                "⭐ " + level
+        );
+
+        l.setTextColor(MUTED);
+        l.setTextSize(12);
+
+        box.addView(l);
+
+        Button start =
+                actionButton(
+                        "ابدأ التمرين"
+                );
+
+        LinearLayout.LayoutParams sp =
+                marginParams(
+                        0,
+                        12,
+                        0,
+                        0
+                );
+
+        box.addView(
+                start,
+                sp
+        );
+
+        start.setOnClickListener(
+                v -> showAI()
+        );
+
+        contentContainer.addView(
+                box,
+                marginParams(
+                        0,
+                        6,
+                        0,
+                        6
+                )
+        );
+    }
+
+    // ============================================================
+    // PROGRESS
+    // ============================================================
+
+    private void showProgress() {
+
+        clearContent();
+
+        contentContainer.addView(
+                title("📊 تقدمك")
+        );
+
+        TextView sub =
+                subtitle(
+                        "تابع تطور مستواك الدراسي"
                 );
 
         sub.setPadding(
@@ -847,37 +1696,315 @@ public class MainActivity extends Activity {
 
         contentContainer.addView(sub);
 
-        LinearLayout chat =
+        addProgressCard(
+                "📚 الدروس",
+                0
+        );
+
+        addProgressCard(
+                "📝 التمارين",
+                0
+        );
+
+        addProgressCard(
+                "🤖 جلسات AI",
+                0
+        );
+
+        LinearLayout goal =
+                card();
+
+        TextView goalTitle =
+                new TextView(this);
+
+        goalTitle.setText(
+                "🎯 هدفك القادم"
+        );
+
+        goalTitle.setTextColor(TEXT);
+        goalTitle.setTextSize(19);
+
+        goalTitle.setTypeface(
+                Typeface.DEFAULT,
+                Typeface.BOLD
+        );
+
+        goal.addView(goalTitle);
+
+        TextView goalText =
+                new TextView(this);
+
+        goalText.setText(
+                "ابدأ بحل أول تمرين اليوم."
+        );
+
+        goalText.setTextColor(MUTED);
+        goalText.setTextSize(14);
+
+        goalText.setPadding(
+                0,
+                dp(8),
+                0,
+                0
+        );
+
+        goal.addView(goalText);
+
+        contentContainer.addView(
+                goal,
+                marginParams(
+                        0,
+                        15,
+                        0,
+                        0
+                )
+        );
+    }
+
+    private void addProgressCard(
+            String text,
+            int value
+    ) {
+
+        LinearLayout box =
+                card();
+
+        TextView label =
+                new TextView(this);
+
+        label.setText(
+                text + "     " + value + "%"
+        );
+
+        label.setTextColor(TEXT);
+        label.setTextSize(15);
+
+        box.addView(label);
+
+        ProgressBar bar =
+                new ProgressBar(
+                        this,
+                        null,
+                        android.R.attr.progressBarStyleHorizontal
+                );
+
+        bar.setMax(100);
+        bar.setProgress(value);
+
+        LinearLayout.LayoutParams bp =
+                new LinearLayout.LayoutParams(
+                        -1,
+                        dp(8)
+                );
+
+        bp.topMargin =
+                dp(12);
+
+        box.addView(
+                bar,
+                bp
+        );
+
+        contentContainer.addView(
+                box,
+                marginParams(
+                        0,
+                        5,
+                        0,
+                        5
+                )
+        );
+    }
+
+    // ============================================================
+    // SETTINGS
+    // ============================================================
+
+    private void showSettings() {
+
+        clearContent();
+
+        contentContainer.addView(
+                title("⚙ الإعدادات")
+        );
+
+        TextView sub =
+                subtitle(
+                        "تحكم في إعدادات BacTech AI"
+                );
+
+        sub.setPadding(
+                0,
+                dp(5),
+                0,
+                dp(18)
+        );
+
+        contentContainer.addView(sub);
+
+        addSetting(
+                "🌙",
+                "الوضع الداكن",
+                "الواجهة الحالية تستخدم الوضع الداكن"
+        );
+
+        addSetting(
+                "🔔",
+                "الإشعارات",
+                "تذكيرات المراجعة"
+        );
+
+        addSetting(
+                "🎓",
+                "المستوى الدراسي",
+                "Bac Sciences Techniques"
+        );
+
+        addSetting(
+                "🌐",
+                "اللغة",
+                "العربية"
+        );
+
+        contentContainer.addView(
+                sectionTitle(
+                        "حول التطبيق"
+                )
+        );
+
+        LinearLayout about =
+                card();
+
+        TextView aboutText =
+                new TextView(this);
+
+        aboutText.setText(
+                "BacTech AI\n\n" +
+                "مساعد دراسي مخصص لطلاب البكالوريا.\n\n" +
+                "الإصدار 1.0"
+        );
+
+        aboutText.setTextColor(TEXT);
+        aboutText.setTextSize(14);
+        aboutText.setGravity(Gravity.RIGHT);
+
+        about.addView(aboutText);
+
+        contentContainer.addView(about);
+    }
+
+    private void addSetting(
+            String icon,
+            String name,
+            String description
+    ) {
+
+        LinearLayout box =
                 new LinearLayout(this);
 
-        chat.setOrientation(
+        box.setOrientation(
+                LinearLayout.HORIZONTAL
+        );
+
+        box.setGravity(
+                Gravity.CENTER_VERTICAL
+        );
+
+        box.setPadding(
+                dp(15),
+                dp(13),
+                dp(15),
+                dp(13)
+        );
+
+        box.setBackground(
+                background(SURFACE, 15)
+        );
+
+        TextView iconView =
+                new TextView(this);
+
+        iconView.setText(icon);
+        iconView.setTextSize(25);
+        iconView.setGravity(Gravity.CENTER);
+
+        box.addView(
+                iconView,
+                new LinearLayout.LayoutParams(
+                        dp(50),
+                        dp(55)
+                )
+        );
+
+        LinearLayout info =
+                new LinearLayout(this);
+
+        info.setOrientation(
                 LinearLayout.VERTICAL
         );
 
-        chat.setPadding(
-                dp(15),
-                dp(15),
-                dp(15),
-                dp(15)
-        );
-
-        chat.setBackground(
-                background(SURFACE, 18)
-        );
-
-        TextView welcome =
+        TextView n =
                 new TextView(this);
 
-        welcome.setText(
-                "👋 مرحبًا!\n\n" +
-                "أنا BacTech AI.\n" +
-                "يمكنني مساعدتك في فهم الدروس، " +
-                "حل التمارين، ومراجعة إجاباتك."
+        n.setText(name);
+        n.setTextColor(TEXT);
+        n.setTextSize(16);
+
+        n.setTypeface(
+                Typeface.DEFAULT,
+                Typeface.BOLD
         );
 
-        welcome.setTextColor(TEXT);
-        welcome.setTextSize(15);
-        welcome.setGravity(Gravity.RIGHT);
+        TextView d =
+                new TextView(this);
 
-        chat.addView(
-   
+        d.setText(description);
+        d.setTextColor(MUTED);
+        d.setTextSize(11);
+
+        info.addView(n);
+        info.addView(d);
+
+        box.addView(
+                info,
+                new LinearLayout.LayoutParams(
+                        0,
+                        -2,
+                        1
+                )
+        );
+
+        Switch sw =
+                new Switch(this);
+
+        box.addView(sw);
+
+        contentContainer.addView(
+                box,
+                marginParams(
+                        0,
+                        5,
+                        0,
+                        5
+                )
+        );
+    }
+
+    // ============================================================
+    // BACK
+    // ============================================================
+
+    @Override
+    public void onBackPressed() {
+
+        if (currentPage != 0) {
+
+            currentPage = 0;
+            showHome();
+
+        } else {
+
+            super.onBackPressed();
+        }
+    }
+}
